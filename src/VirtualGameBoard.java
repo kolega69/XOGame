@@ -1,23 +1,23 @@
 
 public class VirtualGameBoard {
-   /* private int checkResult;
-    private int[][] virtualBoard = new int[3][3];
+    private int checkResult;
+    private int[][] virtualBoard;
     private char winFlag = 'a';
     private char[] chekFlag = new char[8];
 
-    public void virtualBoarsErase() {
-        for (int i = 0; i < 3; i++){
-            for (int j = 0; j < 3; j++){
-                virtualBoard[i][j] = 0;
+    public VirtualGameBoard(int column, int row) {
+        for (int r = 0; r < row; r++){
+            for (int c = 0; c < column; c++){
+                virtualBoard[c][r] = 0;
             }
         }
     }
 
-    public void setVirtualBoardCell(int column, int row, int currentChip){
+    public void setChipToVirtualBoard(int column, int row, int currentChip){
         virtualBoard[column][row] = currentChip;
     }
 
-    public void scanBoard(){
+   /* public void scanBoard(){
         int i = 0;
         for (int row = 0; row < 3; row++){
             checkResult = 0;
@@ -61,6 +61,7 @@ public class VirtualGameBoard {
             }
         }
         chekFlag[i] = 'c';
-    } */
+    }                     */
+
 }
 

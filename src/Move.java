@@ -8,27 +8,34 @@
 * При этом в зависимости от очередности хода определяется тип
 * фишки, который передается вместе с координатами.*/
 
- public class Move {
+ /*public class Move {
 
     private  char[][] chipCurrentMove = new char[3][3];
     private int startRow;
     private int startColumn;
-    private char moveOrder;
     private int currentVirtualChip;
     private final int START_COLUMN = 1;
     private final int START_ROW = 0;
     private final int VIRTUAL_CHIP_X = 1;
     private final int VIRTUAL_CHIP_Zero = 10;
 
-	public void setStartMoveOrder(){
-        moveOrder = 'x';
-	}
+    public Move(int column, int row, char moveOrder) {
 
-    public void setChipPlace(int c, int r){
+        startColumn = (column * 6) + START_COLUMN - 6;
+        startRow = (row * 4) + START_ROW - 4;
 
-        startColumn = (c * 6) + START_COLUMN - 6;
-        startRow = (r * 4) + START_ROW - 4;
+        Chip chip = new Chip(moveOrder);
+        chipCurrentMove = chip.getChipReturn();
+
+        if (moveOrder == 'x') {
+            currentVirtualChip = VIRTUAL_CHIP_X;
+        }
+        else {
+            currentVirtualChip = VIRTUAL_CHIP_Zero;
+        }
     }
+
+
     public int getChipStartColumn(){
         return startColumn;
     }
@@ -36,21 +43,6 @@
         return startRow;
     }
 
-    public void setCurrentMoveChip(){
-	    Chip chip = new Chip();
-        if (moveOrder == 'x') {
-	        chipCurrentMove = chip.getChipXx();
-            currentVirtualChip = VIRTUAL_CHIP_X;
-            moveOrder = '0';
-        }
-        else {
-            chipCurrentMove = chip.getChipOo();
-            currentVirtualChip = VIRTUAL_CHIP_Zero;
-            moveOrder = 'x';
-        }
-
-
-    }
     public char[][] getCurrentMoveChip (){
         return chipCurrentMove;
     }
@@ -59,3 +51,4 @@
         return currentVirtualChip;
     }
 }
+                          */

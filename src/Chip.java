@@ -1,26 +1,31 @@
 public class Chip {
 
-	private char[][] chipXx;
-	private char[][] chipOo;
+	private char[][] chipReturn;
+//	private char[][] chipOo;
 
-    public Chip(){
-        chipXx = new char[][] {
+    public Chip(char chip){
+
+        if (chip == 'x'){
+        chipReturn = new char[][] {
 		        {'\\', ' ', '/'},
                 {' ', 'X', ' '},
                 {'/', ' ', '\\'}
-        };
-	    chipOo = new char[][] {
+                };
+        } else {
+	    chipReturn = new char[][] {
 			    {'/', ' ', '\\'},
                 {'|', ' ', '|'},
                 {'\\', ' ', '/'}
-        };
+                };
+        }
+
+   }
+
+    public char[][] getChipReturn() {
+        return chipReturn;
     }
 
-	public char[][] getChipXx(){
-		return chipXx;
-	}
-	public char[][] getChipOo(){
-		return chipOo;
-	}
-
 }
+
+
+

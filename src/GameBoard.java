@@ -54,9 +54,10 @@ public class GameBoard {
 
 				gameBoard[columnBoard + NUMBER_START_COLUMNS][rowBoard + NUMBER_START_ROWS] = cell.getCell()[c][r];
 			}
-		}
-	}
 
+		}
+
+	}
 
 	public  void drawGameBoard(){
 
@@ -64,8 +65,10 @@ public class GameBoard {
 			for (int c = 0; c < numberOfColumns - 1; c++){
 				System.out.print(gameBoard[c][r]);
 			}
+
 			System.out.println();
 		}
+
 	}
 // в дальнейшем постановку фишки уберу - она будет устанавливаться в ячейку
 // сейчас параметры вставки фишки устанавливаются вручную
@@ -80,6 +83,5 @@ public class GameBoard {
         }
 
     }
-
 
 }
