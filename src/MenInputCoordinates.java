@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class MenInputCoordinates {
@@ -7,7 +8,7 @@ public class MenInputCoordinates {
     private char coordX;
 	private String coordinates;
 
-    public void inputCoordinate() throws Throwable{
+    public void inputCoordinate() throws IOException {
 
         BufferedReader coordinate = new BufferedReader(new InputStreamReader(System.in));
 
