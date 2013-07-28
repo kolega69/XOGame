@@ -23,9 +23,9 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         System.out.println("TIC-TAC-TOE");
+        System.out.println();
 
-        gameChoice();
-
+          Menu menu = new Menu();
 
         GameBoard gameBoard = new GameBoard(COLUMNS_AMOUNT, ROWS_AMOUNT, CELL_WIDTH, CELL_HEIGHT);
         VirtualGameBoard virtualGameBoard = new VirtualGameBoard(COLUMNS_AMOUNT,ROWS_AMOUNT);
@@ -52,41 +52,6 @@ public class Main {
 
     }
 
-    public static void gameChoice() throws IOException {
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-        System.out.println("For Human - Human game press h");
-        System.out.println("For Human - Computer game press c");
-        System.out.println("For Multiplayer game press m");
-
-        String message = "You choose ";
-
-        while (true){
-
-            System.out.print("Please, choose game yuo want: ");
-
-            char gameChoice = reader.readLine().charAt(0);
-
-            if (gameChoice == 'h'){
-                  message = message + "game Human - Human.";
-                    break;
-            }
-            if (gameChoice == 'c'){
-                    message = message + "game Human - Computer.";
-                break;
-            }
-            if (gameChoice == 'm'){
-                    message = message + "Multiplayer";
-                    break;
-            }
-
-            System.out.println("You pressed invalid character, try again.");
-        }
-
-        System.out.println(message);
-
-    }
 
     public static void move(int column, int row, char moveOrder){
         startColumn = (column * 6) + START_COLUMN - 6;
