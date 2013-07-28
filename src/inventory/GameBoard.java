@@ -1,8 +1,5 @@
-/**
- * User: Oleg
- * Date: 19.07.13
- * Time: 15:46
- */
+package inventory;
+
 public class GameBoard {
 
 	private int numberOfRows;

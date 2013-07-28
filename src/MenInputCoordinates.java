@@ -6,9 +6,10 @@ public class MenInputCoordinates {
 
     private char coordY;
     private char coordX;
-	private String coordinates;
 
     public void inputCoordinate() throws IOException {
+
+        String coordinates;
 
         BufferedReader coordinate = new BufferedReader(new InputStreamReader(System.in));
 
@@ -28,10 +29,10 @@ public class MenInputCoordinates {
         }
     }
 
-    public int getCoordinateY() {
-        return coordY - 48;
+    public int getCoordY() {
+        return coordY - 49;
     }
-    public int getCoordinateX(){
-        return coordX - 96;
+    public int getCoordX(){
+        return coordX - 97;
     }
 }

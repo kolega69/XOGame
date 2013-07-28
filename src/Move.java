@@ -24,7 +24,7 @@
         startColumn = (column * 6) + START_COLUMN - 6;
         startRow = (row * 4) + START_ROW - 4;
 
-        Chip chip = new Chip(moveOrder);
+        inventory.Chip chip = new inventory.Chip(moveOrder);
         chipCurrentMove = chip.getChipReturn();
 
         if (moveOrder == 'x') {

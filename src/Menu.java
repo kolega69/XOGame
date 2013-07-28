@@ -14,11 +14,7 @@ public class Menu {
 
     public Menu() throws IOException {
 
-         reader= new BufferedReader(new InputStreamReader(System.in));
-
-
-
-
+        reader= new BufferedReader(new InputStreamReader(System.in));
 
         while (true){
 

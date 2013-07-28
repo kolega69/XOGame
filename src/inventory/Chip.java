@@ -1,3 +1,5 @@
+package inventory;
+
 public class Chip {
 
 	private char[][] chipReturn;
