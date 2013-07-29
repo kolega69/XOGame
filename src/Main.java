@@ -25,15 +25,13 @@ public class Main {
         System.out.println("TIC-TAC-TOE");
         System.out.println();
 
-        Menu menu = new Menu();
+	    Menu menu = new Menu();
 
         GameBoard gameBoard = new GameBoard(COLUMNS_AMOUNT, ROWS_AMOUNT, CELL_WIDTH, CELL_HEIGHT);
         VirtualGameBoard virtualGameBoard = new VirtualGameBoard(COLUMNS_AMOUNT, ROWS_AMOUNT);
-        Validation validation = new Validation(virtualGameBoard.getVirtualBoard());
-
+        Validation validation = new Validation();
 
         MenInputCoordinates inputCoordinates = new MenInputCoordinates();
-
 
         for (int i = 1; i < 10; i++){
 
@@ -48,23 +46,36 @@ public class Main {
                 row  = inputCoordinates.getCoordY();
 
                 if(validation.isEmpty(virtualGameBoard.getVirtualBoard()[column][row])){
-                    System.out.println(false);
+
                     break;
+
                 }
 
             }
 
             if (i % 2 == 0) {
-                moveOrder = '0';
+                moveOrder = '2';
             } else {
-                moveOrder = 'x';
+                moveOrder = '1';
             }
 
             move(column, row, moveOrder);
 
             gameBoard.setChipOnBoard(startColumn, startRow,chipCurrentMove);
             gameBoard.drawGameBoard();
+
             virtualGameBoard.setChipToVirtualBoard(column, row, currentVirtualChip);
+
+	        String result = validation.isDrowOrWin(virtualGameBoard.getVirtualBoard());
+
+	        if (result.equals("Win")){
+		        System.out.println("Player" + moveOrder + " win");
+		        return;
+	        } else if (result.equals("Draw")){
+		        System.out.println("D_R_A_W");
+		        return;
+	        }
+
         }
 
     }
@@ -77,13 +88,13 @@ public class Main {
         Chip chip = new Chip(moveOrder);
         chipCurrentMove = chip.getChipReturn();
 
-        if (moveOrder == 'x') {
+        if (moveOrder == '1') {
             currentVirtualChip = VIRTUAL_CHIP_X;
         }
         else {
             currentVirtualChip = VIRTUAL_CHIP_0;
         }
 
-
     }
+
 }

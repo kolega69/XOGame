@@ -32,9 +32,6 @@ public class VirtualGameBoard {
 
     }
 
-    public int getCheckPlace(int column, int row) {
-        return virtualBoard[column][row];
-    }
 }
 
 

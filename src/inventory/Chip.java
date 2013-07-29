@@ -7,7 +7,7 @@ public class Chip {
 
     public Chip(char chip){
 
-        if (chip == 'x'){
+        if (chip == '1'){
         chipReturn = new char[][] {
 		        {'\\', ' ', '/'},
                 {' ', 'X', ' '},
