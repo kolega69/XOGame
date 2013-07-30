@@ -1,6 +1,9 @@
-import Players.MenInputCoordinates;
+import players.Computer;
+import players.MenInputCoordinates;
 import inventory.Chip;
 import inventory.GameBoard;
+import virtuals.Validation;
+import virtuals.VirtualGameBoard;
 
 import java.io.IOException;
 
@@ -27,14 +30,19 @@ public class Main {
 
 	    Menu menu = new Menu();
 
-        GameBoard gameBoard = new GameBoard(COLUMNS_AMOUNT, ROWS_AMOUNT, CELL_WIDTH, CELL_HEIGHT);
+        GameBoard gameBoard =
+		        new GameBoard(COLUMNS_AMOUNT, ROWS_AMOUNT, CELL_WIDTH, CELL_HEIGHT);
 	    System.out.println();
-	    VirtualGameBoard virtualGameBoard = new VirtualGameBoard(COLUMNS_AMOUNT, ROWS_AMOUNT);
+	    VirtualGameBoard virtualGameBoard =
+			    new VirtualGameBoard(COLUMNS_AMOUNT, ROWS_AMOUNT);
         Validation validation = new Validation();
 
-        MenInputCoordinates inputCoordinates = new MenInputCoordinates();
-	    MenInputCoordinates player1 = new MenInputCoordinates();
-	    MenInputCoordinates player2 = new MenInputCoordinates();
+        MenInputCoordinates currentPlayer;
+	    MenInputCoordinates player1 =
+			    new MenInputCoordinates(menu.getPlayer1Name());
+	    MenInputCoordinates player2 =
+			    new MenInputCoordinates(menu.getPlayer2Name());
+	    Computer computer = new Computer();
 
         for (int i = 1; i < 10; i++){
 
@@ -46,15 +54,22 @@ public class Main {
 
 		        if (i % 2 == 0) {
 			        moveOrder = '2';
-			        player2.inputCoordinate(menu.getPlayer2Name());
-			        column = player2.getCoordX();
-			        row = player2.getCoordY();
+			        currentPlayer = computer;
+//			        currentPlayer = player2;
+//			        player2.inputCoordinate(menu.getPlayer2Name());
+//			        column = player2.getCoordC();
+//			        row = player2.getCoordR();
 		        } else {
 			        moveOrder = '1';
-			        player1.inputCoordinate(menu.getPlayer1Name());
-			        column = player1.getCoordX();
-			        row = player1.getCoordY();
+			        currentPlayer = player1;
+//			        player1.inputCoordinate(menu.getPlayer1Name());
+//			        column = player1.getCoordC();
+//			        row = player1.getCoordR();
 		        }
+
+		        currentPlayer.inputCoordinate();
+		        column = currentPlayer.getCoordC();
+		        row = currentPlayer.getCoordR();
 
 		        if(validation.isEmpty(virtualGameBoard.getVirtualBoard()[column][row])){
 
@@ -79,7 +94,7 @@ public class Main {
 	        String result = validation.isDrowOrWin(virtualGameBoard.getVirtualBoard());
 
 	        if (result.equals("Win")){
-		        System.out.println("Player" + moveOrder + " win");
+		        System.out.println("W_I_N " + currentPlayer.getName() + " W_I_N");
 		        return;
 	        } else if (result.equals("Draw")){
 		        System.out.println("D_R_A_W");
