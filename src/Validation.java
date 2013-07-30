@@ -23,7 +23,7 @@ public class Validation {
 			//проверяет горизонтали и вертикали
 			for (int r = 0; r < validationBoard[1].length; r++) {
 
-				if (!flag[boolIter]) {
+				if (!flag[boolIter]) {    // отсекает тупиковые проверки
 
 					int sum = sumElements(r);
 

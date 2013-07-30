@@ -1,9 +1,7 @@
 
 public class VirtualGameBoard {
-    private int checkResult;
+
     private int[][] virtualBoard;
-    private char winFlag = 'a';
-    private char[] chekFlag = new char[8];
 
     public VirtualGameBoard(int column, int row) {
 

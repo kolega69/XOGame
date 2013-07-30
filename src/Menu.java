@@ -78,7 +78,7 @@ public class Menu {
 
         System.out.println();
 
-        if (name == null){
+        if (name.equals("")){
 
             name = "player" + number;
 

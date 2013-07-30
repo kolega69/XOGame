@@ -1,3 +1,4 @@
+import Players.MenInputCoordinates;
 import inventory.Chip;
 import inventory.GameBoard;
 
@@ -19,7 +20,6 @@ public class Main {
     private static final int CELL_HEIGHT = 4;
 
 
-
     public static void main(String[] args) throws IOException {
 
         System.out.println("TIC-TAC-TOE");
@@ -28,24 +28,35 @@ public class Main {
 	    Menu menu = new Menu();
 
         GameBoard gameBoard = new GameBoard(COLUMNS_AMOUNT, ROWS_AMOUNT, CELL_WIDTH, CELL_HEIGHT);
-        VirtualGameBoard virtualGameBoard = new VirtualGameBoard(COLUMNS_AMOUNT, ROWS_AMOUNT);
+	    System.out.println();
+	    VirtualGameBoard virtualGameBoard = new VirtualGameBoard(COLUMNS_AMOUNT, ROWS_AMOUNT);
         Validation validation = new Validation();
 
         MenInputCoordinates inputCoordinates = new MenInputCoordinates();
+	    MenInputCoordinates player1 = new MenInputCoordinates();
+	    MenInputCoordinates player2 = new MenInputCoordinates();
 
         for (int i = 1; i < 10; i++){
 
             char moveOrder;
-            int column;
-            int row;
+	        int column;
+	        int row;
 
-            for (;;) {
+	        for (;;) {
 
-                inputCoordinates.inputCoordinate();
-                column = inputCoordinates.getCoordX();
-                row  = inputCoordinates.getCoordY();
+		        if (i % 2 == 0) {
+			        moveOrder = '2';
+			        player2.inputCoordinate(menu.getPlayer2Name());
+			        column = player2.getCoordX();
+			        row = player2.getCoordY();
+		        } else {
+			        moveOrder = '1';
+			        player1.inputCoordinate(menu.getPlayer1Name());
+			        column = player1.getCoordX();
+			        row = player1.getCoordY();
+		        }
 
-                if(validation.isEmpty(virtualGameBoard.getVirtualBoard()[column][row])){
+		        if(validation.isEmpty(virtualGameBoard.getVirtualBoard()[column][row])){
 
                     break;
 
@@ -53,16 +64,15 @@ public class Main {
 
             }
 
-            if (i % 2 == 0) {
-                moveOrder = '2';
-            } else {
-                moveOrder = '1';
-            }
+
 
             move(column, row, moveOrder);
 
             gameBoard.setChipOnBoard(startColumn, startRow,chipCurrentMove);
-            gameBoard.drawGameBoard();
+
+	        System.out.println();
+	        gameBoard.drawGameBoard();
+	        System.out.println();
 
             virtualGameBoard.setChipToVirtualBoard(column, row, currentVirtualChip);
 

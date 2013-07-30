@@ -1,13 +1,12 @@
+package Players;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class MenInputCoordinates {
+public class MenInputCoordinates extends Player {
 
-    private char coordY;
-    private char coordX;
-
-    public void inputCoordinate() throws IOException {
+    public void inputCoordinate(String name) throws IOException {
 
         String coordinates;
 
@@ -15,7 +14,8 @@ public class MenInputCoordinates {
 
         while (true){
             while (true){
-	            System.out.print("Type field (for instance a1): ");
+
+	            System.out.print(name + " type field (for instance a1): ");
 	            coordinates = coordinate.readLine();
 	            if (coordinates.length() == 2){
 		            break;
@@ -25,14 +25,14 @@ public class MenInputCoordinates {
 	        coordY = coordinates.charAt(1);
             if ((coordX >= 'a' && coordX <= 'c') && (coordY >= '1' && coordY <= '3')){
 	            break;
+
             }
+
         }
+
+	    coordX -= 97;
+	    coordY -= 49;
+
     }
 
-    public int getCoordY() {
-        return coordY - 49;
-    }
-    public int getCoordX(){
-        return coordX - 97;
-    }
 }
