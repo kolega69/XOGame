@@ -39,9 +39,9 @@ public class Menu {
                 System.out.println(message + "game Human - Human.");
                 System.out.println();
                 System.out.print("X play first. ");
-                setPlayerHuman("1");
+                setPlayerHuman("player1");
                 player1Name = name;
-                setPlayerHuman("2");
+                setPlayerHuman("player2");
                 player2Name = name;
                 break;
 
@@ -57,10 +57,14 @@ public class Menu {
 
             if (gameChoice == '3'){
 
-                System.out.println("Sorry, this option will be able later");
-                System.out.println();
-//                System.out.println(message + "Multiplayer");
-//                break;
+//                System.out.println("Sorry, this option will be able later");
+
+                System.out.println(message + "Multiplayer game.");
+	            System.out.println();
+	            setPlayerHuman("your");
+	            System.out.println();
+
+	            break;
             }
 
             System.out.println(warning);
@@ -72,7 +76,7 @@ public class Menu {
 
     public void setPlayerHuman(String  number) throws IOException{
 
-        System.out.print("Type player" + number + " name: ");
+        System.out.print("Type " + number + " name: ");
 
         name = reader.readLine();
 
@@ -80,7 +84,7 @@ public class Menu {
 
         if (name.equals("")){
 
-            name = "player" + number;
+            name = number;
 
         }
 
@@ -88,13 +92,24 @@ public class Menu {
 
     public void choosePlayerOrder() throws IOException{
 
-        setPlayerHuman(" human");
+        setPlayerHuman("player");
 
         while (true) {
 
-            System.out.print("X play first. Do you want play X? y/n: ");
+            char choice;
 
-            char choice = reader.readLine().charAt(0);
+            while (true){
+                System.out.print("X play first. Do you want play X? y/n: ");
+
+                String trying = reader.readLine();
+
+                if (trying.length() != 0){
+
+                    choice = trying.charAt(0);
+                    break;
+
+                }
+            }
 
             System.out.println();
 
