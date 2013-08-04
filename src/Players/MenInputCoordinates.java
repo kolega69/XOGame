@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 
 public class MenInputCoordinates extends Player {
 
+	String coordinates;
+
 	public MenInputCoordinates() {
 	}
 
@@ -13,33 +15,39 @@ public class MenInputCoordinates extends Player {
 		super(name);
 	}
 
-	public void inputCoordinate() throws IOException {
+	public void setCoordinate() throws Exception {
 
-        String coordinates;
+         inpCoordinate();
+
+    }
+
+    public void inpCoordinate() throws Exception {
 
         BufferedReader coordinate = new BufferedReader(new InputStreamReader(System.in));
 
         while (true){
             while (true){
 
-	            System.out.print(getName() + " type field (for instance a1): ");
-	            coordinates = coordinate.readLine();
-	            if (coordinates.length() == 2){
-		            break;
-	            }
+                System.out.print(getName() + " type field (for instance a1): ");
+                coordinates = coordinate.readLine();
+                if (coordinates.length() == 2){
+                    break;
+                }
             }
             coordC = coordinates.charAt(0);
-	        coordR = coordinates.charAt(1);
+            coordR = coordinates.charAt(1);
             if ((coordC >= 'a' && coordC <= 'c') && (coordR >= '1' && coordR <= '3')){
-	            break;
+                break;
 
             }
 
         }
 
-	    coordC -= 97;
-	    coordR -= 49;
+        coordC -= 97;
+        coordR -= 49;
 
     }
+
+
 
 }
