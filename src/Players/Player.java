@@ -1,24 +1,27 @@
-package Players;
+package players;
 
 public class Player {
 
-	private String name;
-	char coordX;
-	char coordY;
+	String name;
+	int coordC;
+	int coordR;
 
 	public Player() {
+	}
 
+	public Player(String name) {
+		this.name = name;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public char getCoordX() {
-		return coordX;
+	public int getCoordC() {
+		return coordC;
 	}
 
-	public char getCoordY() {
-		return coordY;
+	public int getCoordR() {
+		return coordR;
 	}
 }

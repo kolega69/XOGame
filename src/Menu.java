@@ -61,7 +61,7 @@ public class Menu {
 
                 System.out.println(message + "Multiplayer game.");
 	            System.out.println();
-	            setPlayerHuman("your");
+	            choosePlayerOrder();
 	            System.out.println();
 
 	            break;

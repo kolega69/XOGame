@@ -5,8 +5,6 @@ import inventory.GameBoard;
 import virtuals.Validation;
 import virtuals.VirtualGameBoard;
 
-import java.io.IOException;
-
 public class Main {
 
     private static char[][] chipCurrentMove = new char[3][3];
@@ -22,13 +20,18 @@ public class Main {
     private static final int CELL_WIDTH = 6;
     private static final int CELL_HEIGHT = 4;
 
+	private static MenInputCoordinates player1;
+	private static MenInputCoordinates player2;
 
-    public static void main(String[] args) throws IOException {
+
+    public static void main(String[] args) throws Exception {
 
         System.out.println("TIC-TAC-TOE");
         System.out.println();
 
 	    Menu menu = new Menu();
+	    String player1Name = menu.getPlayer1Name();
+	    String player2Name = menu.getPlayer2Name();
 
         GameBoard gameBoard =
 		        new GameBoard(COLUMNS_AMOUNT, ROWS_AMOUNT, CELL_WIDTH, CELL_HEIGHT);
@@ -38,11 +41,23 @@ public class Main {
         Validation validation = new Validation();
 
         MenInputCoordinates currentPlayer;
-	    MenInputCoordinates player1 =
-			    new MenInputCoordinates(menu.getPlayer1Name());
-	    MenInputCoordinates player2 =
-			    new MenInputCoordinates(menu.getPlayer2Name());
 	    Computer computer = new Computer();
+
+	    player1 = new MenInputCoordinates(player1Name, "NetServer");
+	    player2 = new MenInputCoordinates(player2Name, "NetClient");
+
+//	    HumanServer humanServerSend = new HumanServer();
+//	    HumanClient humanClientSend = new HumanClient();
+
+
+	    if (player1Name.equals("Computer")){
+		    player1 = computer;
+	    }  else if (player2Name.equals("Computer")){
+		    player2 = computer;
+	    }
+
+//	    player1 = humanServerSend;
+//	    player2 = humanClientSend;
 
         for (int i = 1; i < 10; i++){
 
@@ -52,22 +67,22 @@ public class Main {
 
 	        for (;;) {
 
-		        if (i % 2 == 0) {
-			        moveOrder = '2';
-			        currentPlayer = computer;
-//			        currentPlayer = player2;
-//			        player2.inputCoordinate(menu.getPlayer2Name());
-//			        column = player2.getCoordC();
-//			        row = player2.getCoordR();
-		        } else {
+		        if (i % 2 != 0) {
 			        moveOrder = '1';
 			        currentPlayer = player1;
-//			        player1.inputCoordinate(menu.getPlayer1Name());
+//			        player1.setCoordinate(menu.getPlayer1Name());
 //			        column = player1.getCoordC();
-//			        row = player1.getCoordR();
+			        row = player1.getCoordR();
+		        } else {
+			        moveOrder = '2';
+			        currentPlayer = player2;
+//			        player2.setCoordinate(menu.getPlayer2Name());
+//			        column = player2.getCoordC();
+			        row = player2.getCoordR();
 		        }
 
-		        currentPlayer.inputCoordinate();
+		        currentPlayer.setCoordinate(moveOrder);
+
 		        column = currentPlayer.getCoordC();
 		        row = currentPlayer.getCoordR();
 

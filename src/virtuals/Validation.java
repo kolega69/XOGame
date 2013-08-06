@@ -65,12 +65,8 @@ public class Validation {
 			//
 		}
 
-
-
 		if (drawFlag == 0){
-
 			result = "Draw";
-
 		}
 
 		return result;
@@ -99,7 +95,6 @@ public class Validation {
 		int sum = 0;
 
 		for (int column = 0; column < validationBoard.length; column++) {
-
 			sum += validationBoard[column][row];
 		}
 
@@ -112,22 +107,15 @@ public class Validation {
 		int sum = 0;
 
 		for (int i = 0; i < validationBoard.length; i++) {
-
 			sum += validationBoard[i][i];
-
 		}
 
 		return sum;
 
 	}
 
-
-
-
 	public boolean checkDraw(int sum) {
-
 		return  (sum == 11 || sum == 12 || sum == 21);
-
 	}
 
 }
