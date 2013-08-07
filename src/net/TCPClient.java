@@ -3,7 +3,7 @@ package net;
 import java.io.*;
 import java.net.*;
 
-public class TCPClient {
+public class TCPClient extends TCPObject{
 
 	private final String HOST_NAME = "Oleg_K";
 	private final int PORT = 6543;
@@ -15,6 +15,7 @@ public class TCPClient {
 		client = new Socket(HOST_NAME, PORT);
 	}
 
+	@Override
 	public void sendCoord(String coordinates) throws Exception {
 
 		DataOutputStream dataOut =
@@ -24,6 +25,7 @@ public class TCPClient {
 
 	}
 
+	@Override
 	public String receiveCoord() throws Exception{
 
 		BufferedReader dataIn =
