@@ -1,4 +1,5 @@
 import net.TCPClient;
+import net.TCPObject;
 import net.TCPServer;
 import players.Computer;
 import players.MenInputCoordinates;
@@ -13,6 +14,10 @@ public class Main {
     private static int startRow;
     private static int startColumn;
     private static int currentVirtualChip;
+	private static int column;
+	private static int row;
+	private static char moveOrder;
+
     private static final int START_COLUMN = 1;
     private static final int START_ROW = 0;
     private static final int VIRTUAL_CHIP_X = 1;
@@ -21,13 +26,13 @@ public class Main {
     private static final int COLUMNS_AMOUNT = 3;
     private static final int CELL_WIDTH = 6;
     private static final int CELL_HEIGHT = 4;
-	private static int column;
-	private static int row;
+
 	private static MenInputCoordinates player1;
 	private static MenInputCoordinates player2;
 	private static MenInputCoordinates currentPlayer;
 	private static TCPServer server;
 	private static TCPClient client;
+
 
     public static void main(String[] args) throws Exception {
 
@@ -37,6 +42,7 @@ public class Main {
 	    Menu menu = new Menu();
 	    String player1Name = menu.getPlayer1Name();
 	    String player2Name = menu.getPlayer2Name();
+	    char typeOfGame = menu.getGameChoice();
 
         GameBoard gameBoard =
 		        new GameBoard(COLUMNS_AMOUNT, ROWS_AMOUNT, CELL_WIDTH, CELL_HEIGHT);
@@ -53,7 +59,7 @@ public class Main {
 
 
 //	    server = new TCPServer();
-	    client = new TCPClient();
+//	    client = new TCPClient();
 
 	    if (player1Name.equals("Computer")){
 		    player1 = computer;
@@ -64,34 +70,28 @@ public class Main {
 
         for (int i = 1; i < 10; i++){
 
-            char moveOrder;
-
-
 	        for (;;) {
 
-		        if (i % 2 != 0) {
-			        moveOrder = '1';
-			        currentPlayer = player1;
-			        reciveCoordFromServer();
-//			        sendCoordToClient();
-
-		        } else {
-			        moveOrder = '2';
-			        currentPlayer = player2;
-//			        reciveCoordFromClient();
-			        sendCoordToServer();
+		        if (typeOfGame == '1' || typeOfGame == '2') {
+			        SwitchHumans(i);
 		        }
 
-//		        currentPlayer.setCoordinate(moveOrder);
-//
-//		        column = currentPlayer.getCoordC();
-//		        row = currentPlayer.getCoordR();
+//		        if (i % 2 != 0) {
+//			        moveOrder = '1';
+//			        currentPlayer = player1;
+////			        reciveCoord(client);
+//		        } else {
+//			        moveOrder = '2';
+//			        currentPlayer = player2;
+////			        sendCoord(client);
+//		        }
+		        setCoord(currentPlayer);
 
-		        if(validation.isEmpty(virtualGameBoard.getVirtualBoard()[column][row])){
-                    break;
-                }
+		        if (validation.isEmpty(virtualGameBoard.getVirtualBoard()[column][row])) {
+			        break;
+		        }
 //		        break;
-            }
+	        }
 
 	        System.out.println(column + " " + row);
 
@@ -135,44 +135,44 @@ public class Main {
         }
 
     }
-	// пока еще не знаю, как сократить 4 нижних метода до 2х
-	public static void sendCoordToClient() throws Exception{
 
-		currentPlayer.setCoordinate();
-		column = currentPlayer.getCoordC();
-		row = currentPlayer.getCoordR();
-//		String coordinates = currentPlayer.getCoord();
-		String coordinates = Integer.toString(column) + Integer.toString(row);
-		server.sendCoord(coordinates);
 
-	}
+	public static void sendCoord(TCPObject player) throws Exception{
 
-	public static void reciveCoordFromClient() throws Exception {
-
-		String coordinates =  server.receiveCoord();
-		currentPlayer.stringToCoord(coordinates);
-		column = currentPlayer.getCoordC() - 48;
-		row = currentPlayer.getCoordR() - 48;
-
-	}
-
-	public static void sendCoordToServer() throws Exception{
-
-		currentPlayer.setCoordinate();
-		column = currentPlayer.getCoordC();
-		row = currentPlayer.getCoordR();
+//		currentPlayer.setCoordinate();
+//		column = currentPlayer.getCoordC();
+//		row = currentPlayer.getCoordR();
+		setCoord(currentPlayer);
 		String coordinates = Integer.toString(column) + Integer.toString(row);
 		System.out.println(coordinates);
-		client.sendCoord(coordinates);
+		player.sendCoord(coordinates);
 
 	}
 
-	public static void reciveCoordFromServer() throws Exception {
+	public static void reciveCoord(TCPObject player) throws Exception {
 
-		String coordinates =  client.receiveCoord();
+		String coordinates =  player.receiveCoord();
 		currentPlayer.stringToCoord(coordinates);
 		column = currentPlayer.getCoordC() - 48;
 		row = currentPlayer.getCoordR() - 48;
 
 	}
+
+	public static void setCoord(MenInputCoordinates player) throws Exception{
+		player.setCoordinate();
+		column = currentPlayer.getCoordC();
+		row = currentPlayer.getCoordR();
+	}
+
+	public static void SwitchHumans(int i) {
+		if (i % 2 != 0) {
+			moveOrder = '1';
+			currentPlayer = player1;
+		} else {
+			moveOrder = '2';
+			currentPlayer = player2;
+		}
+	}
 }
+
+

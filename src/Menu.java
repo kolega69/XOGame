@@ -10,6 +10,7 @@ public class Menu {
     private String name;
     private String player1Name;
     private String player2Name;
+	private char gameChoice;
 
 
     public Menu() throws IOException {
@@ -27,7 +28,7 @@ public class Menu {
 
             System.out.print("Please, choose game you want: ");
 
-            char gameChoice = reader.readLine().charAt(0);
+            gameChoice = reader.readLine().charAt(0);
 
             for (int i = 0; i < 5; i++) {
                 System.out.println();
@@ -142,4 +143,7 @@ public class Menu {
         return player2Name;
     }
 
+	public char getGameChoice() {
+		return gameChoice;
+	}
 }
