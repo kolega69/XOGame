@@ -15,7 +15,11 @@ public class MenInputCoordinates extends Player {
 		super(name);
 	}
 
-	public void setCoordinate() throws Exception {
+    public MenInputCoordinates(String name, String messenger) throws Exception {
+        super(name, messenger);
+    }
+
+    public void setCoordinate() throws Exception {
 
          inpCoordinate();
 
