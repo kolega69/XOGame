@@ -34,8 +34,7 @@ public class MenInputCoordinates extends Player {
                     break;
                 }
             }
-            coordC = coordinates.charAt(0);
-            coordR = coordinates.charAt(1);
+            stringToCoord(coordinates);
             if ((coordC >= 'a' && coordC <= 'c') && (coordR >= '1' && coordR <= '3')){
                 break;
 
@@ -47,6 +46,15 @@ public class MenInputCoordinates extends Player {
         coordR -= 49;
 
     }
+
+	public void stringToCoord(String coordinates) {
+		coordC = coordinates.charAt(0);
+		coordR = coordinates.charAt(1);
+	}
+
+	public String getCoord() {
+		return coordinates;
+	}
 
 
 

@@ -1,3 +1,5 @@
+import net.TCPClient;
+import net.TCPServer;
 import players.Computer;
 import players.MenInputCoordinates;
 import inventory.Chip;
@@ -19,10 +21,13 @@ public class Main {
     private static final int COLUMNS_AMOUNT = 3;
     private static final int CELL_WIDTH = 6;
     private static final int CELL_HEIGHT = 4;
-
+	private static int column;
+	private static int row;
 	private static MenInputCoordinates player1;
 	private static MenInputCoordinates player2;
-
+	private static MenInputCoordinates currentPlayer;
+	private static TCPServer server;
+	private static TCPClient client;
 
     public static void main(String[] args) throws Exception {
 
@@ -40,15 +45,15 @@ public class Main {
 			    new VirtualGameBoard(COLUMNS_AMOUNT, ROWS_AMOUNT);
         Validation validation = new Validation();
 
-        MenInputCoordinates currentPlayer;
+        currentPlayer = new MenInputCoordinates();
 	    Computer computer = new Computer();
 
-	    player1 = new MenInputCoordinates(player1Name, "NetServer");
-	    player2 = new MenInputCoordinates(player2Name, "NetClient");
+	    player1 = new MenInputCoordinates(player1Name);
+	    player2 = new MenInputCoordinates(player2Name);
 
-//	    HumanServer humanServerSend = new HumanServer();
-//	    HumanClient humanClientSend = new HumanClient();
 
+//	    server = new TCPServer();
+	    client = new TCPClient();
 
 	    if (player1Name.equals("Computer")){
 		    player1 = computer;
@@ -56,45 +61,39 @@ public class Main {
 		    player2 = computer;
 	    }
 
-//	    player1 = humanServerSend;
-//	    player2 = humanClientSend;
 
         for (int i = 1; i < 10; i++){
 
             char moveOrder;
-	        int column;
-	        int row;
+
 
 	        for (;;) {
 
 		        if (i % 2 != 0) {
 			        moveOrder = '1';
 			        currentPlayer = player1;
-//			        player1.setCoordinate(menu.getPlayer1Name());
-//			        column = player1.getCoordC();
-			        row = player1.getCoordR();
+			        reciveCoordFromServer();
+//			        sendCoordToClient();
+
 		        } else {
 			        moveOrder = '2';
 			        currentPlayer = player2;
-//			        player2.setCoordinate(menu.getPlayer2Name());
-//			        column = player2.getCoordC();
-			        row = player2.getCoordR();
+//			        reciveCoordFromClient();
+			        sendCoordToServer();
 		        }
 
-		        currentPlayer.setCoordinate(moveOrder);
-
-		        column = currentPlayer.getCoordC();
-		        row = currentPlayer.getCoordR();
+//		        currentPlayer.setCoordinate(moveOrder);
+//
+//		        column = currentPlayer.getCoordC();
+//		        row = currentPlayer.getCoordR();
 
 		        if(validation.isEmpty(virtualGameBoard.getVirtualBoard()[column][row])){
-
                     break;
-
                 }
-
+//		        break;
             }
 
-
+	        System.out.println(column + " " + row);
 
             move(column, row, moveOrder);
 
@@ -136,5 +135,44 @@ public class Main {
         }
 
     }
+	// пока еще не знаю, как сократить 4 нижних метода до 2х
+	public static void sendCoordToClient() throws Exception{
 
+		currentPlayer.setCoordinate();
+		column = currentPlayer.getCoordC();
+		row = currentPlayer.getCoordR();
+//		String coordinates = currentPlayer.getCoord();
+		String coordinates = Integer.toString(column) + Integer.toString(row);
+		server.sendCoord(coordinates);
+
+	}
+
+	public static void reciveCoordFromClient() throws Exception {
+
+		String coordinates =  server.receiveCoord();
+		currentPlayer.stringToCoord(coordinates);
+		column = currentPlayer.getCoordC() - 48;
+		row = currentPlayer.getCoordR() - 48;
+
+	}
+
+	public static void sendCoordToServer() throws Exception{
+
+		currentPlayer.setCoordinate();
+		column = currentPlayer.getCoordC();
+		row = currentPlayer.getCoordR();
+		String coordinates = Integer.toString(column) + Integer.toString(row);
+		System.out.println(coordinates);
+		client.sendCoord(coordinates);
+
+	}
+
+	public static void reciveCoordFromServer() throws Exception {
+
+		String coordinates =  client.receiveCoord();
+		currentPlayer.stringToCoord(coordinates);
+		column = currentPlayer.getCoordC() - 48;
+		row = currentPlayer.getCoordR() - 48;
+
+	}
 }

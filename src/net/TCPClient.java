@@ -5,7 +5,7 @@ import java.net.*;
 
 public class TCPClient {
 
-	private final String HOST_NAME = "OLEG_K";
+	private final String HOST_NAME = "Oleg_K";
 	private final int PORT = 6543;
 	private String coordinates;
 	private Socket client;
