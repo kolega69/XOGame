@@ -5,14 +5,14 @@ import java.net.*;
 
 public class TCPClient extends TCPObject{
 
-	private final String HOST_NAME = "Oleg_K";
+	private final String HOST_NAME = "SUN";
 	private final int PORT = 6543;
 	private String coordinates;
-	private Socket client;
+	private Socket client = new Socket(HOST_NAME, PORT);
 
 	public TCPClient() throws Exception{
 
-		client = new Socket(HOST_NAME, PORT);
+
 	}
 
 	@Override
@@ -32,8 +32,9 @@ public class TCPClient extends TCPObject{
 				new BufferedReader(
 						new InputStreamReader(client.getInputStream()));
 
-		coordinates = dataIn.readLine();
+        coordinates = dataIn.readLine();
 
-		return coordinates;
+        return coordinates;
+
 	}
 }

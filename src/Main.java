@@ -5,6 +5,8 @@ import players.Computer;
 import players.MenInputCoordinates;
 import inventory.Chip;
 import inventory.GameBoard;
+import players.netPlayers.Recipient;
+import players.netPlayers.Sender;
 import virtuals.Validation;
 import virtuals.VirtualGameBoard;
 
@@ -67,6 +69,8 @@ public class Main {
 		    player2 = computer;
 	    }
 
+        player1 = new Sender("ggg", "server");
+        player2 = new Recipient("vvv", "server");
 
         for (int i = 1; i < 10; i++){
 
