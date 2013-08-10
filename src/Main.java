@@ -1,8 +1,6 @@
 import net.TCPClient;
-import net.TCPObject;
 import net.TCPServer;
-import players.Computer;
-import players.MenInputCoordinates;
+import players.*;
 import inventory.Chip;
 import inventory.GameBoard;
 import players.netPlayers.Recipient;
@@ -31,9 +29,10 @@ public class Main {
 
 	private static MenInputCoordinates player1;
 	private static MenInputCoordinates player2;
-	private static MenInputCoordinates currentPlayer;
+//	private static MenInputCoordinates currentPlayer;
 	private static TCPServer server;
 	private static TCPClient client;
+	private static ISetCoordinates currentPlayer;
 
 
     public static void main(String[] args) throws Exception {
@@ -53,15 +52,14 @@ public class Main {
 			    new VirtualGameBoard(COLUMNS_AMOUNT, ROWS_AMOUNT);
         Validation validation = new Validation();
 
-        currentPlayer = new MenInputCoordinates();
+//        currentPlayer = new MenInputCoordinates();
 	    Computer computer = new Computer();
 
 	    player1 = new MenInputCoordinates(player1Name);
 	    player2 = new MenInputCoordinates(player2Name);
 
 
-//	    server = new TCPServer();
-//	    client = new TCPClient();
+
 
 	    if (player1Name.equals("Computer")){
 		    player1 = computer;
@@ -69,8 +67,11 @@ public class Main {
 		    player2 = computer;
 	    }
 
-        player1 = new Sender("ggg", "server");
-        player2 = new Recipient("vvv", "server");
+//	    server = new TCPServer();
+	    client = new TCPClient();
+
+        player2 = new Sender(" ", client);
+        player1 = new Recipient(" ", client);
 
         for (int i = 1; i < 10; i++){
 
@@ -140,33 +141,13 @@ public class Main {
 
     }
 
-
-	public static void sendCoord(TCPObject player) throws Exception{
-
-//		currentPlayer.setCoordinate();
-//		column = currentPlayer.getCoordC();
-//		row = currentPlayer.getCoordR();
-		setCoord(currentPlayer);
-		String coordinates = Integer.toString(column) + Integer.toString(row);
-		System.out.println(coordinates);
-		player.sendCoord(coordinates);
-
-	}
-
-	public static void reciveCoord(TCPObject player) throws Exception {
-
-		String coordinates =  player.receiveCoord();
-		currentPlayer.stringToCoord(coordinates);
+	public static void setCoord(ISetCoordinates player) throws Exception{
+		player.setCoordinate();
 		column = currentPlayer.getCoordC() - 48;
 		row = currentPlayer.getCoordR() - 48;
 
-	}
-
-	public static void setCoord(MenInputCoordinates player) throws Exception{
-		player.setCoordinate();
-		column = currentPlayer.getCoordC();
-		row = currentPlayer.getCoordR();
-	}
+        System.out.println(column + "|" + row);
+    }
 
 	public static void SwitchHumans(int i) {
 		if (i % 2 != 0) {

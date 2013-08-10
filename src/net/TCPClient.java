@@ -3,17 +3,21 @@ package net;
 import java.io.*;
 import java.net.*;
 
-public class TCPClient extends TCPObject{
+public class TCPClient implements InterTCP{
 
-	private final String HOST_NAME = "SUN";
-	private final int PORT = 6543;
+	private final static String HOST_NAME = "SUN";
+	private final static int PORT = 6543;
 	private String coordinates;
-	private Socket client = new Socket(HOST_NAME, PORT);
+	private Socket client;
 
 	public TCPClient() throws Exception{
-
+        client = new Socket(HOST_NAME, PORT) ;
 
 	}
+
+    public Socket instanceTCP(){
+         return client;
+    }
 
 	@Override
 	public void sendCoord(String coordinates) throws Exception {

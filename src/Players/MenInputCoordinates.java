@@ -3,8 +3,9 @@ package players;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import net.InterTCP;
 
-public class MenInputCoordinates extends Player {
+public class MenInputCoordinates extends Player implements ISetCoordinates{
 
 	String coordinates;
 
@@ -15,7 +16,7 @@ public class MenInputCoordinates extends Player {
 		super(name);
 	}
 
-    public MenInputCoordinates(String name, String messenger) throws Exception {
+    public MenInputCoordinates(String name, InterTCP messenger) throws Exception {
         super(name, messenger);
     }
 

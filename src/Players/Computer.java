@@ -2,7 +2,7 @@ package players;
 
 import virtuals.StudentEngine;
 
-public class Computer extends MenInputCoordinates {
+public class Computer extends MenInputCoordinates implements ISetCoordinates{
 
 	StudentEngine studentEngine;
 

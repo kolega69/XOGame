@@ -58,11 +58,10 @@ public class Menu {
 
             if (gameChoice == '3'){
 
-//                System.out.println("Sorry, this option will be able later");
-
                 System.out.println(message + "Multiplayer game.");
 	            System.out.println();
-	            choosePlayerOrder();
+	            chooseSokeetSide();
+                choosePlayerOrder();
 	            System.out.println();
 
 	            break;
@@ -84,9 +83,7 @@ public class Menu {
         System.out.println();
 
         if (name.equals("")){
-
             name = number;
-
         }
 
     }
@@ -133,6 +130,11 @@ public class Menu {
             System.out.println(warning);
         }
 
+    }
+
+    public void chooseSokeetSide() throws IOException{
+
+        System.out.println("Would you like create Server? y/n: ");
     }
 
     public String getPlayer1Name() {

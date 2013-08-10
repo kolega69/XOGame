@@ -4,14 +4,14 @@ import java.io.*;
 import java.net.*;
 
 
-public class TCPServer extends TCPObject{
+public class TCPServer implements InterTCP{
 
-	private ServerSocket serverSocket = new ServerSocket(6543);
-	private Socket connectionSocket = serverSocket.accept();
-	private String coordinates;
+	private static ServerSocket serverSocket;
+	private Socket connectionSocket;
 
 	public TCPServer() throws Exception{
-
+        serverSocket = new ServerSocket(6543);
+        connectionSocket = serverSocket.accept();
 	}
 
 	@Override

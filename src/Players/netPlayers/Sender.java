@@ -1,11 +1,13 @@
 package players.netPlayers;
 
 
+import net.InterTCP;
+import players.ISetCoordinates;
 import players.MenInputCoordinates;
 
-public class Sender extends MenInputCoordinates{
+public class Sender extends MenInputCoordinates implements ISetCoordinates{
 
-    public Sender(String name, String messenger) throws Exception {
+    public Sender(String name, InterTCP messenger) throws Exception {
         super(name, messenger);
     }
 
