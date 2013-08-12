@@ -30,11 +30,8 @@ public class Main {
 
 	private static MenInputCoordinates player1;
 	private static MenInputCoordinates player2;
-	private static TCPServer server;
-	private static TCPClient client;
 	private static ISetCoordinates currentPlayer;
 	private static InterTCP soketSide;
-	private static Computer computer;
 
 
     public static void main(String[] args) throws Exception {
@@ -148,11 +145,8 @@ public class Main {
 
 	public static void setCoord(ISetCoordinates player) throws Exception{
 		player.setCoordinate();
-		column = currentPlayer.getCoordC();
-		row = currentPlayer.getCoordR();
-
-        System.out.println(column + "|" + row);
-
+		column = player.getCoordC();
+		row = player.getCoordR();
     }
 
 	public static void SwitchHumans(int i) {
