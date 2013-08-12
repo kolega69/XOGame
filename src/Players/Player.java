@@ -39,7 +39,6 @@ public class Player {
     public void sendCoord() throws Exception {
 
         String coordinates = Integer.toString(coordC) + Integer.toString(coordR);
-        System.out.println(coordinates);
         messenger.sendCoord(coordinates);
 
     }
