@@ -11,6 +11,8 @@ public class Menu {
     private String player1Name;
     private String player2Name;
 	private char gameChoice;
+    private String soketSide;
+	private char whosFirst;
 
 
     public Menu() throws IOException {
@@ -19,14 +21,13 @@ public class Menu {
 
         while (true){
 
-            System.out.println("For Human - Human game press 1");
-            System.out.println();
-            System.out.println("For Human - Computer game press 2");
-            System.out.println();
-            System.out.println("For Multiplayer game press 3");
-            System.out.println();
-
-            System.out.print("Please, choose game you want: ");
+            System.out.print("For Human - Human game press 1" + '\n'
+                    + '\n'
+                    + "For Human - Computer game press 2" + '\n'
+                    + '\n'
+                    + "For Multiplayer game press 3" + '\n'
+                    + '\n'
+                    + "Please, choose game you want: ");
 
             gameChoice = reader.readLine().charAt(0);
 
@@ -37,13 +38,13 @@ public class Menu {
 
             if (gameChoice == '1'){
 
-                System.out.println(message + "game Human - Human.");
-                System.out.println();
-                System.out.print("X play first. ");
-                setPlayerHuman("player1");
-                player1Name = name;
-                setPlayerHuman("player2");
-                player2Name = name;
+                System.out.print(message + "game Human - Human." + '\n'
+                                + '\n'
+                                + "X play first. ");
+
+                player1Name = setPlayerHuman("player1");
+                player2Name = setPlayerHuman("player2");
+
                 break;
 
             }
@@ -51,7 +52,9 @@ public class Menu {
             if (gameChoice == '2'){
 
                 System.out.println(message + "game Human - Computer.");
-                choosePlayerOrder();
+
+	            player1Name = setPlayerHuman("your");
+	            whosFirst = choosePlayerOrder();
 
                 break;
             }
@@ -60,8 +63,9 @@ public class Menu {
 
                 System.out.println(message + "Multiplayer game.");
 	            System.out.println();
-	            chooseSokeetSide();
-                choosePlayerOrder();
+	            soketSide = chooseSokeetSide();
+	            player1Name = setPlayerHuman("your");
+	            whosFirst = choosePlayerOrder();
 	            System.out.println();
 
 	            break;
@@ -74,7 +78,7 @@ public class Menu {
 
     }
 
-    public void setPlayerHuman(String  number) throws IOException{
+    public String  setPlayerHuman(String  number) throws IOException{
 
         System.out.print("Type " + number + " name: ");
 
@@ -86,44 +90,30 @@ public class Menu {
             name = number;
         }
 
+	    return name;
     }
 
-    public void choosePlayerOrder() throws IOException{
-
-        setPlayerHuman("player");
+    public char choosePlayerOrder() throws IOException{
 
         while (true) {
 
             char choice;
 
-            while (true){
-                System.out.print("X play first. Do you want play X? y/n: ");
-
-                String trying = reader.readLine();
-
-                if (trying.length() != 0){
-
-                    choice = trying.charAt(0);
-                    break;
-
-                }
-            }
+            choice = makeChoice("X play first. Do you want play X? y/n: ");
 
             System.out.println();
 
             if (choice == 'y') {
 
                 player1Name = name;
-                player2Name = "Computer";
-                return;
+                return choice;
 
             }
 
             if (choice == 'n') {
 
                 player1Name = "Computer";
-                player2Name = name;
-                return;
+                return choice;
 
             }
 
@@ -132,9 +122,44 @@ public class Menu {
 
     }
 
-    public void chooseSokeetSide() throws IOException{
+    public String chooseSokeetSide() throws IOException{
 
-        System.out.println("Would you like create Server? y/n: ");
+        char choice;
+
+        while (true) {
+
+        choice = makeChoice("Would you like to create Server? y/n: ");
+
+        if (choice == 'y') {
+            return "server";
+        }
+
+        if (choice == 'n') {
+            return "client";
+        }
+
+        System.out.println(warning);
+    }
+
+}
+
+    public char makeChoice(String text) throws IOException{
+        char choice;
+
+        while (true){
+            System.out.print(text);
+
+            String trying = reader.readLine();
+
+            if (trying.length() != 0){
+
+                choice = trying.charAt(0);
+                break;
+
+            }
+        }
+
+        return choice;
     }
 
     public String getPlayer1Name() {
@@ -148,4 +173,13 @@ public class Menu {
 	public char getGameChoice() {
 		return gameChoice;
 	}
+
+	public char getWhosFirst() {
+		return whosFirst;
+	}
+
+	public String getSoketSide() {
+		return soketSide;
+	}
+
 }

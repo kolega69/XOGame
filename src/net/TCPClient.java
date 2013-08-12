@@ -5,7 +5,7 @@ import java.net.*;
 
 public class TCPClient implements InterTCP{
 
-	private final static String HOST_NAME = "SUN";
+	private final static String HOST_NAME = "Oleg_K";
 	private final static int PORT = 6543;
 	private String coordinates;
 	private Socket client;

@@ -1,3 +1,4 @@
+import net.InterTCP;
 import net.TCPClient;
 import net.TCPServer;
 import players.*;
@@ -29,10 +30,11 @@ public class Main {
 
 	private static MenInputCoordinates player1;
 	private static MenInputCoordinates player2;
-//	private static MenInputCoordinates currentPlayer;
 	private static TCPServer server;
 	private static TCPClient client;
 	private static ISetCoordinates currentPlayer;
+	private static InterTCP soketSide;
+	private static Computer computer;
 
 
     public static void main(String[] args) throws Exception {
@@ -43,7 +45,41 @@ public class Main {
 	    Menu menu = new Menu();
 	    String player1Name = menu.getPlayer1Name();
 	    String player2Name = menu.getPlayer2Name();
-	    char typeOfGame = menu.getGameChoice();
+
+	    switch (menu.getGameChoice()){
+
+		    case '1':
+			    player1 = new MenInputCoordinates(player1Name);
+			    player2 = new MenInputCoordinates(player2Name);
+			    break;
+
+		    case '2':
+			    if (menu.getWhosFirst() == 'y') {
+				    player1 = new MenInputCoordinates(player1Name);
+				    player2 = new Computer();
+			    } else {
+				    player1 = new Computer();
+				    player2 = new MenInputCoordinates(player1Name);
+			    }
+			    break;
+
+		    case '3':
+			    if (menu.getSoketSide().equals("server")){
+				    soketSide = new TCPServer();
+			    } else {
+				    soketSide = new TCPClient();
+			    }
+
+			    if (menu.getWhosFirst() == 'y') {
+				    player1 = new Sender(player1Name, soketSide);
+				    player2 = new Recipient(player2Name, soketSide);
+			    } else {
+				    player1 = new Recipient(player2Name, soketSide);
+				    player2 = new Sender(player1Name, soketSide);
+			    }
+			    break;
+
+	    }
 
         GameBoard gameBoard =
 		        new GameBoard(COLUMNS_AMOUNT, ROWS_AMOUNT, CELL_WIDTH, CELL_HEIGHT);
@@ -52,50 +88,19 @@ public class Main {
 			    new VirtualGameBoard(COLUMNS_AMOUNT, ROWS_AMOUNT);
         Validation validation = new Validation();
 
-//        currentPlayer = new MenInputCoordinates();
-	    Computer computer = new Computer();
-
-	    player1 = new MenInputCoordinates(player1Name);
-	    player2 = new MenInputCoordinates(player2Name);
-
-
-
-
-	    if (player1Name.equals("Computer")){
-		    player1 = computer;
-	    }  else if (player2Name.equals("Computer")){
-		    player2 = computer;
-	    }
-
-//	    server = new TCPServer();
-	    client = new TCPClient();
-
-        player2 = new Sender(" ", client);
-        player1 = new Recipient(" ", client);
-
         for (int i = 1; i < 10; i++){
 
 	        for (;;) {
 
-		        if (typeOfGame == '1' || typeOfGame == '2') {
-			        SwitchHumans(i);
-		        }
+			    SwitchHumans(i);
 
-//		        if (i % 2 != 0) {
-//			        moveOrder = '1';
-//			        currentPlayer = player1;
-////			        reciveCoord(client);
-//		        } else {
-//			        moveOrder = '2';
-//			        currentPlayer = player2;
-////			        sendCoord(client);
-//		        }
 		        setCoord(currentPlayer);
 
-		        if (validation.isEmpty(virtualGameBoard.getVirtualBoard()[column][row])) {
+		        int currentCell =  virtualGameBoard.getVirtualBoard()[column][row];
+		        if (validation.isEmpty(currentCell)) {
 			        break;
 		        }
-//		        break;
+
 	        }
 
 	        System.out.println(column + " " + row);
@@ -143,10 +148,11 @@ public class Main {
 
 	public static void setCoord(ISetCoordinates player) throws Exception{
 		player.setCoordinate();
-		column = currentPlayer.getCoordC() - 48;
-		row = currentPlayer.getCoordR() - 48;
+		column = currentPlayer.getCoordC();
+		row = currentPlayer.getCoordR();
 
         System.out.println(column + "|" + row);
+
     }
 
 	public static void SwitchHumans(int i) {
