@@ -100,8 +100,6 @@ public class Main {
 
 	        }
 
-	        System.out.println(column + " " + row);
-
             move(column, row, moveOrder);
 
             gameBoard.setChipOnBoard(startColumn, startRow,chipCurrentMove);
