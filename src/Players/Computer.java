@@ -23,8 +23,6 @@ public class Computer extends MenInputCoordinates implements ISetCoordinates{
 	    coordR = studentEngine.getCoordR();
 		coordC = studentEngine.getCoordC();
 
-//		System.out.println(coordC + " " + coordR);
-
 	}
 
 }

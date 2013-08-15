@@ -61,6 +61,4 @@ public class MenInputCoordinates extends Player implements ISetCoordinates{
 		return coordinates;
 	}
 
-
-
 }
