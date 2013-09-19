@@ -1,6 +1,7 @@
 package virtuals.gardner;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * Date: 03.09.13
@@ -28,19 +29,16 @@ public class Gardner {
 	}
 
     // делаем ход
-	public int[]  letsPlay(int column, int row)
+	public int[]  letsPlay(int x, int y)
 			throws CellIsNotEmptyException{
 
-		if (!isCellEmpty(column, row)){
-			String ex = column + " " + row;
+		if (!isCellEmpty(x, y)){
+			String ex = x + " " + y;
 			throw new  CellIsNotEmptyException(ex);
 		}
 
-        gameBoard[1][0] = 'B';
-        gameBoard[1][1] = 'B';
-        gameBoard[2][1] = 'B';
 
-        System.out.println(isWin(1, 1, 'B'));
+		System.out.println(isWin(0, 0, 'B'));
 
 
 		return MOVE_CELL;
@@ -58,47 +56,79 @@ public class Gardner {
 
 	// Проверка на победу
 	public boolean isWin(int x, int y, char chip) {
+		HashSet<String> win = new HashSet<>();
 		for (int i = 0; i < 4; i++) {
-		String result = checkWin(x, y, chip, i);
+			System.out.println(i);
+			win.addAll(checkWin(x, y, chip, i));
+			for (String g : win){
+				System.out.print(g + ", ");
+			}
+			System.out.println();
+			if ((win.size()) > 1) {
+				System.out.println("win");
+				return true;
+			}
 		}
+
+
 		return false;
 	}
-    public String checkWin(int xx, int yy, char chip, int direction) {
-        String points = "";
+    public HashSet<String> checkWin(int xx, int yy, char chip, int direction) {
         int x = 0, y = 0;
-	    int countPoints = 0;
-        System.out.println(direction);
+	    HashSet<String> emptySell = new HashSet<>();
+	    HashSet<String> emptySum = new HashSet<>();
+
+	    start:
         for (int i = 0; i < numInTheRow; i++) {
-	        System.out.println("+++++");
 	        for (int k = 0; k < numInTheRow; k++) {
-                x = xx - (numInTheRow - 1) + i + k;
-                switch (direction) {
-                    case 0 :
-                        y = yy;
-                        break;
-                    case 1 :
-                        x = xx;
-                        y = yy - (numInTheRow - 1) + i + k;
-                        break;
-                    case 2 :
-                        y = x + (yy - xx);
-                        break;
-                    case 3 :
-                        y = (yy + xx) - x;
-                        break;
-                }
-	            System.out.println(x + " : " + y);
-	            try {
-		            if (gameBoard[x][y] == chip) {
-			            countPoints++;
-		            }
-	            } catch (IndexOutOfBoundsException ex) {
-	            }
-
-
-            }
+		        x = xx - (numInTheRow - 1) + i + k;
+		        switch (direction) {
+			        case 0:
+				        y = yy;
+				        break;
+			        case 1:
+				        x = xx;
+				        y = yy - (numInTheRow - 1) + i + k;
+				        break;
+			        case 2:
+				        y = x + (yy - xx);
+				        break;
+			        case 3:
+				        y = (yy + xx) - x;
+				        break;
+		        }
+//	            System.out.println(x + " : " + y);
+		        try {
+			        if (gameBoard[x][y] != chip & gameBoard[x][y] != '\u0000') {
+				        emptySell.clear();
+				        continue start;
+			        }
+			        if (gameBoard[x][y] == '\u0000') {
+				        emptySell.add(x + " " + y);
+			        }
+		        } catch (IndexOutOfBoundsException ex) {
+			        emptySell.clear();
+			        continue start;
+		        }
+	        }
+	        /* при отсутствии пустых полей - победа*/
+	        if (emptySell.size() == 0) {
+		        System.out.println(emptySell.size());
+		        for (int g = 0; g < 3; g++) {
+			        emptySum.add("win" + g);
+		        }
+		        return emptySum;
+	        }
+	        /*если пустых полей больше одного,
+		     * то очистить счетчик пустых полей*/
+	        if (emptySell.size() > 1) {
+		        emptySell.clear();
+	        }
+	        emptySum.addAll(emptySell);
+	        emptySell.clear();
         }
-        return points;
+//	    emptySum.addAll(emptySell);
+	    return emptySum;
     }
 
 	public int getCoordC() {
