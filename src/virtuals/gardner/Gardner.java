@@ -58,19 +58,18 @@ public class Gardner {
 	public boolean isWin(int x, int y, char chip) {
 		HashSet<String> win = new HashSet<>();
 		for (int i = 0; i < 4; i++) {
-			System.out.println(i);
 			win.addAll(checkWin(x, y, chip, i));
-			for (String g : win){
-				System.out.print(g + ", ");
-			}
-			System.out.println();
 			if ((win.size()) > 1) {
-				System.out.println("win");
 				return true;
 			}
 		}
-
-
+        String[] coordinate = win.toArray(new String[0]);
+        String[] xy = coordinate[0].split(" ");
+        int[] xAndY = new int[2];
+        for (int i = 0; i < xAndY.length; i++){
+            xAndY[i] = Integer.parseInt(xy[i]);
+            System.out.println(xAndY[i]);
+        }
 		return false;
 	}
     public HashSet<String> checkWin(int xx, int yy, char chip, int direction) {
@@ -97,7 +96,6 @@ public class Gardner {
 				        y = (yy + xx) - x;
 				        break;
 		        }
-//	            System.out.println(x + " : " + y);
 		        try {
 			        if (gameBoard[x][y] != chip & gameBoard[x][y] != '\u0000') {
 				        emptySell.clear();
