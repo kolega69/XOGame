@@ -2,7 +2,7 @@ package players;
 
 public interface ISetCoordinates {
 
-	void setCoordinate() throws Exception;
+	void setCoordinate(int x, int y) throws Exception;
 
 	String getCoord();
 

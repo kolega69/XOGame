@@ -12,8 +12,8 @@ public class Sender extends MenInputCoordinates implements ISetCoordinates{
     }
 
     @Override
-    public void setCoordinate() throws Exception{
-        super.setCoordinate();
+    public void setCoordinate(int x, int y) throws Exception{
+        super.setCoordinate(x, y);
         sendCoord();
     }
 }

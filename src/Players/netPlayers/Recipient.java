@@ -18,7 +18,7 @@ public class Recipient extends MenInputCoordinates implements ISetCoordinates
     }
 
     @Override
-    public void setCoordinate()throws Exception
+    public void setCoordinate(int x, int y)throws Exception
 	{
 
         coordinate = receiveCoord();

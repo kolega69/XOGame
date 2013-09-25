@@ -20,7 +20,7 @@ public class MenInputCoordinates extends Player implements ISetCoordinates{
         super(name, messenger);
     }
 
-    public void setCoordinate() throws Exception {
+    public void setCoordinate(int x, int y) throws Exception {
 
          inpCoordinate();
 
